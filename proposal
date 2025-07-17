@@ -1,0 +1,138 @@
+from pptx import Presentation
+from pptx.util import Inches, Pt
+from pptx.dml.color import RGBColor
+from pptx.enum.shapes import MSO_SHAPE
+from pptx.enum.text import PP_ALIGN
+
+# Create a new presentation
+prs = Presentation()
+
+# Helper function to add a slide with title and content
+def add_slide(title, content_type='bullets', content=None, layout=1):
+    slide_layout = prs.slide_layouts[layout]  # 0=title, 1=title+content, 6=blank
+    slide = prs.slides.add_slide(slide_layout)
+    title_shape = slide.shapes.title
+    title_shape.text = title
+    title_shape.text_frame.paragraphs[0].font.size = Pt(32)
+    return slide
+
+# Slide 1: Title Slide
+slide1 = add_slide("Transformational Behavioral Training and Services Proposal", layout=0)
+subtitle = slide1.placeholders[1]  # Subtitle placeholder
+subtitle.text = "For C2O Americas – Performance Enhancement for Senior Leadership\nPrepared for: James O'Driscoll, SVP HSEQ\nPrepared by: Christi Miller, CSP\nDate: July 17, 2025\nContact: millerchristi@ymail.com | Houston, TX"
+# Visual: Add a rectangle shape as background placeholder for image
+shapes = slide1.shapes
+bg = shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), prs.slide_width, prs.slide_height)
+bg.fill.solid()
+bg.fill.fore_color.rgb = RGBColor(0, 102, 204)  # Blue background
+# Placeholder for image: In PowerPoint, insert a energy team photo here
+
+# Slide 2: Agenda
+slide2 = add_slide("Agenda")
+body = slide2.placeholders[1]
+tf = body.text_frame
+tf.text = "1. Executive Summary\n2. About Performance Consulting Services\n3. C2O Americas' Opportunities and Challenges\n4. Proposed Services and Approach\n5. Key Deliverables\n6. Expected Results and Impact\n7. Timeline\n8. Proven Track Record\n9. Pricing Structure\n10. Next Steps"
+# Visual: Add a timeline shape
+line = shapes.add_shape(MSO_SHAPE.LINE_INVERSE, Inches(1), Inches(2), Inches(8), Inches(0))
+line.line.color.rgb = RGBColor(255, 255, 255)
+
+# Slide 3: Executive Summary
+slide3 = add_slide("Executive Summary")
+body = slide3.placeholders[1]
+tf = body.text_frame
+tf.text = "- Tailored behavioral training and consulting for HSEQ performance enhancement in senior leadership.\n- Scalable to Australia operations and a global team workshop in September 2025.\n- Drawing from 15+ years of ExxonMobil expertise in global projects.\n- Approach: Inspire, Empower, Solve – Achieving zero-incident environments and operational excellence.\n- Partner with us to transform C2O Americas' projects into HSEQ models of success."
+# Visual: Add a handshake icon (rectangle placeholder)
+icon = shapes.add_shape(MSO_SHAPE.OVAL, Inches(8), Inches(1), Inches(1), Inches(1))
+icon.fill.solid()
+icon.fill.fore_color.rgb = RGBColor(0, 255, 0)
+
+# Slide 4: About Us
+slide4 = add_slide("About Performance Consulting Services and Christi Miller")
+body = slide4.placeholders[1]
+tf = body.text_frame
+tf.text = "- Founded 2024: Behavioral-based consulting for safety cultures and performance optimization.\n- Christi Miller, CSP: 15+ years EHS leadership.\n  - ExxonMobil (2010–2024): Led SSHE on multi-billion projects – 25% incident reduction.\n  - Dynamic Industries: 40% risk cut.\n- Core Expertise: Behavioral safety, risk management."
+# Visual: Timeline for career – add lines and text boxes
+for i, year in enumerate(["2010-2024", "2008-2009"]):
+    tb = shapes.add_textbox(Inches(1), Inches(2 + i*1), Inches(2), Inches(0.5))
+    tb.text_frame.text = year
+
+# Slide 5: Challenges
+slide5 = add_slide("C2O Americas' Opportunities and Challenges")
+body = slide5.placeholders[1]
+tf = body.text_frame
+tf.text = "- High-stakes energy projects: Engineering, commissioning in oil/gas, mining.\n- Challenges: Behavioral risks, leadership alignment.\n- Opportunities: Enhance senior performance; scale to Australia.\n- Goal: Proactive HSEQ enhancements."
+# Visual: Map shape – add world map placeholder (rectangle)
+map_shape = shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(7), Inches(2), Inches(2), Inches(2))
+map_shape.fill.solid()
+map_shape.fill.fore_color.rgb = RGBColor(200, 200, 200)  # Gray for map
+
+# Slide 6: Proposed Services
+slide6 = add_slide("Proposed Services: Performance Enhancement for Senior Leadership")
+body = slide6.placeholders[1]
+tf = body.text_frame
+tf.text = "- HSEQ Leadership Assessments: Identify gaps (30% metric gains).\n- Customized Coaching: Reduce incidents by 25%.\n- Behavioral Training Workshops: 20% compliance uplifts.\n- Americas-to-Australia Expansion.\n- Global Team Workshop (Sept 2025).\n- Ongoing Metrics Tracking."
+# Visual: Flowchart – add arrows
+arrow = shapes.add_shape(MSO_SHAPE.ARROW, Inches(2), Inches(3), Inches(2), Inches(1))
+
+# Slide 7: Approach
+slide7 = add_slide("Our Approach: Transform, Don't Just Manage")
+body = slide7.placeholders[1]
+tf = body.text_frame
+tf.text = "- Inspire: HSEQ insights from global successes.\n- Empower: Tools for safety ownership.\n- Solve: Data interventions for root issues."
+# Visual: Pyramid – add stacked rectangles
+for i in range(3):
+    pyr = shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(3 - i*0.5), Inches(2 + i*1), Inches(4 + i), Inches(1))
+
+# Slide 8: Benefits
+slide8 = add_slide("Expected Benefits and Impact")
+body = slide8.placeholders[1]
+tf = body.text_frame
+tf.text = "- 20-30% improvements in HSEQ metrics.\n- Up to 25% incident reductions.\n- Scalable excellence: Australia integration.\n- ROI: Cost savings, enhanced reputation."
+# Visual: Bar chart placeholders – add rectangles for bars
+for i in range(4):
+    bar = shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(1 + i*1.5), Inches(4 - (i+1)*0.5), Inches(1), Inches((i+1)*0.5))
+
+# Slide 9: Timeline
+slide9 = add_slide("Project Timeline")
+body = slide9.placeholders[1]
+tf = body.text_frame
+tf.text = "- August 2025: Kickoff Assessments in Americas.\n- Late August: Expand to Australia.\n- September 2025: Global Workshop.\n- Ongoing: Quarterly Reviews."
+# Visual: Gantt-style lines
+for i in range(4):
+    gantt = shapes.add_shape(MSO_SHAPE.LINE_INVERSE, Inches(2), Inches(2 + i*0.5), Inches(6), Inches(0))
+
+# Slide 10: Track Record
+slide10 = add_slide("Proven Track Record")
+body = slide10.placeholders[1]
+tf = body.text_frame
+tf.text = "- 'Reduced incidents by 25% on global ExxonMobil projects.'\n- 'Improved safety metrics by 30%.'\n- '40% risk exposure reduction.'"
+# Visual: Quote bubbles – add ovals
+quote = shapes.add_shape(MSO_SHAPE.OVAL, Inches(1), Inches(1), Inches(2), Inches(2))
+
+# Slide 11: Pricing
+slide11 = add_slide("Pricing Structure")
+body = slide11.placeholders[1]
+tf = body.text_frame
+tf.text = "Component | Description | Pricing\nInitial Assessment | Evaluations (4-6 days) | $7,500 flat\nCoaching Sessions | Executive (per hour) | $250/hr\nTraining Workshops | Half/Full-day | $3,000 / $5,500\nAustralia Expansion | 2-4 weeks | $15,000-$30,000\nGlobal Workshop | Sept 2025 | $12,000\nOngoing Support | Quarterly | $2,000/month\n- 15% discount for bundles."
+tf.paragraphs[0].alignment = PP_ALIGN.CENTER  # Table-like alignment
+# Visual: Table grid – add lines for table
+for row in range(7):
+    shapes.add_shape(MSO_SHAPE.LINE_INVERSE, Inches(1), Inches(1 + row*0.5), Inches(8), Inches(0))
+for col in range(4):
+    shapes.add_shape(MSO_SHAPE.LINE_INVERSE, Inches(1 + col*2.5), Inches(1), Inches(0), Inches(3.5))
+
+# Slide 12: Next Steps
+slide12 = add_slide("Next Steps")
+body = slide12.placeholders[1]
+tf = body.text_frame
+tf.text = "1. Align on Plan: Schedule call this week.\n2. Kickoff Assessment: Early August 2025.\n3. Confirm Expansion: Australia rollout and September workshop."
+# Visual: Step arrows
+arrow2 = shapes.add_shape(MSO_SHAPE.ARROW, Inches(2), Inches(2), Inches(2), Inches(1))
+
+# Slide 13: Thank You
+slide13 = add_slide("Thank You")
+body = slide13.placeholders[1]
+tf = body.text_frame
+tf.text = "- Questions? Let's discuss.\n- Contact: Christi Miller, CSP | millerchristi@ymail.com\n- Together, we'll drive HSEQ excellence!"
+# Visual: Team image placeholder
+team = shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(4), Inches(2), Inches(4), Inches(3))
